@@ -15,7 +15,7 @@ content-type: application/json
 
 ###
 
-DELETE http://localhost:8080/api/delete/6
+DELETE http://localhost:8080/api/delete/8
 content-type: application/json
 
 ###
@@ -24,7 +24,7 @@ PUT http://localhost:8080/api/edit
 content-type: application/json
 
 {
-    "id": 5,
+    "id": 7,
     "text": "This is Updated text 2"
 }
 
