@@ -1,31 +1,31 @@
-GET http://localhost:8080/api/all
+GET http://localhost:8081/api/all
 
 ###
 
-GET http://localhost:8080/api/find/9
+GET http://localhost:8081/api/find/5
 
 ###
 
-POST http://localhost:8080/api/new
+POST http://localhost:8081/api/new
 content-type: application/json
 
 {
-    "text": "test"
+    "text": "This is my nth Job"
 }
 
 ###
 
-DELETE http://localhost:8080/api/delete/11
+DELETE http://localhost:8081/api/delete/12
 content-type: application/json
 
 ###
 
-PUT http://localhost:8080/api/edit
+PUT http://localhost:8081/api/edit
 content-type: application/json
 
 {
     "id": 9,
-    "text": "edited"
+    "text": "This is Updated text 9"
 }
 
 ###
