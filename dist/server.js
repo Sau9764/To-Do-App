@@ -6,11 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var db = require("./models");
 var apiRoutes = require("./routes/apiRoutes.js");
+var authRoutes = require("./routes/authRoutes.js");
 var app = express_1.default();
-var PORT = process.env.port || 8081;
+var PORT = process.env.port || 8080;
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 app.use("/api", apiRoutes);
+app.use("/auth", authRoutes);
 db.sequelize
     .authenticate()
     .then(function (err) {

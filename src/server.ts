@@ -3,16 +3,17 @@ import express from 'express'
 
 const db = require("./models")
 const apiRoutes = require("./routes/apiRoutes.js")
-
+const authRoutes = require("./routes/authRoutes.js")
 const app = express()
 
-const PORT = process.env.port || 8081
+const PORT = process.env.port || 8080
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
-app.use("/api", apiRoutes)
 
+app.use("/api", apiRoutes)
+app.use("/auth", authRoutes)
 
 db.sequelize
   .authenticate()
