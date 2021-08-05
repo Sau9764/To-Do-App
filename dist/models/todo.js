@@ -4,9 +4,6 @@ module.exports = function (sequelize, DataTypes) {
         text: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        name: {
-            type: DataTypes.STRING
         }
     });
     return Todo;

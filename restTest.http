@@ -1,12 +1,15 @@
-GET http://localhost:8081/api/all
+GET http://localhost:8080/api/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJpZCI6MSwidXNlcm5hbWUiOiJyb290IiwicGFzc3dvcmQiOiIkMmIkMTAkUktwQUYwOGJPSGdCdy5YNnh6SS9tdTEzNHl4a0JneVBDWGJQQmh6Sms3WmpCbnJoVThVT2UiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTA1VDA4OjIxOjIyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTA1VDA4OjIxOjIyLjAwMFoifV0sImlhdCI6MTYyODE1NDY2NCwiZXhwIjoxNjI4MTU0OTY0fQ.WUIPs74bVf4A0R8Jmq3cNQmdprThGD7TGQjRn5gPm1I
 
 ###
 
-GET http://localhost:8081/api/find/5
+GET http://localhost:8080/api/find/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJpZCI6MSwidXNlcm5hbWUiOiJyb290IiwicGFzc3dvcmQiOiIkMmIkMTAkUktwQUYwOGJPSGdCdy5YNnh6SS9tdTEzNHl4a0JneVBDWGJQQmh6Sms3WmpCbnJoVThVT2UiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTA1VDA4OjIxOjIyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTA1VDA4OjIxOjIyLjAwMFoifV0sImlhdCI6MTYyODE1NDY2NCwiZXhwIjoxNjI4MTU0OTY0fQ.WUIPs74bVf4A0R8Jmq3cNQmdprThGD7TGQjRn5gPm1I
 
 ###
 
-POST http://localhost:8081/api/new
+POST http://localhost:8080/api/new
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJpZCI6MSwidXNlcm5hbWUiOiJyb290IiwicGFzc3dvcmQiOiIkMmIkMTAkUktwQUYwOGJPSGdCdy5YNnh6SS9tdTEzNHl4a0JneVBDWGJQQmh6Sms3WmpCbnJoVThVT2UiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTA1VDA4OjIxOjIyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTA1VDA4OjIxOjIyLjAwMFoifV0sImlhdCI6MTYyODE1NDY2NCwiZXhwIjoxNjI4MTU0OTY0fQ.WUIPs74bVf4A0R8Jmq3cNQmdprThGD7TGQjRn5gPm1I
 content-type: application/json
 
 {
@@ -15,17 +18,37 @@ content-type: application/json
 
 ###
 
-DELETE http://localhost:8081/api/delete/12
+DELETE http://localhost:8080/api/delete/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJpZCI6MSwidXNlcm5hbWUiOiJyb290IiwicGFzc3dvcmQiOiIkMmIkMTAkUktwQUYwOGJPSGdCdy5YNnh6SS9tdTEzNHl4a0JneVBDWGJQQmh6Sms3WmpCbnJoVThVT2UiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTA1VDA4OjIxOjIyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTA1VDA4OjIxOjIyLjAwMFoifV0sImlhdCI6MTYyODE1NDY2NCwiZXhwIjoxNjI4MTU0OTY0fQ.WUIPs74bVf4A0R8Jmq3cNQmdprThGD7TGQjRn5gPm1I
 content-type: application/json
 
 ###
 
-PUT http://localhost:8081/api/edit
+PUT http://localhost:8080/api/edit
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJpZCI6MSwidXNlcm5hbWUiOiJyb290IiwicGFzc3dvcmQiOiIkMmIkMTAkUktwQUYwOGJPSGdCdy5YNnh6SS9tdTEzNHl4a0JneVBDWGJQQmh6Sms3WmpCbnJoVThVT2UiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTA1VDA4OjIxOjIyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTA1VDA4OjIxOjIyLjAwMFoifV0sImlhdCI6MTYyODE1NDY2NCwiZXhwIjoxNjI4MTU0OTY0fQ.WUIPs74bVf4A0R8Jmq3cNQmdprThGD7TGQjRn5gPm1I
 content-type: application/json
 
 {
-    "id": 9,
+    "id": 1,
     "text": "This is Updated text 9"
 }
 
 ###
+
+POST http://localhost:8080/auth/sign-up
+content-type: application/json
+
+{
+    "username": "root",
+    "password": "root123"
+}
+
+###
+
+POST http://localhost:8080/auth/login
+content-type: application/json
+
+{
+    "username": "root",
+    "password": "root123"
+}
