@@ -1,62 +1,48 @@
 import express, { Request, Response, NextFunction } from "express"
-import { any } from "sequelize/types/lib/operators"
-const jwt = require("jsonwebtoken")
-const db = require("../models")
+import { Todo } from "../interfaces"
 
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const db = require("../models")
 
 const router = express.Router()
 
-interface Todo {id: number, text: string, [key: string]: any}
-interface User { username: string, password:string, [key: string]: any }
-
 // get All todo List
-router.get("/all", authToken, (req: Request, res: Response) => {
-    db.Todo.findAll().then((todos: Todo[]) => res.send(todos))
+router.get("/all", async (req: Request, res: Response) => {
+    let todos = await db.Todo.findAll()
+    res.send(todos)
 })
 
 // get By ID
-router.get("/find/:id", authToken, (req: Request, res: Response) => {
-    db.Todo.findAll({ 
-        where: { id: req.params.id }
-    }).then((todo: Todo) => res.send(todo))
+router.get("/find/:id", async (req: Request, res: Response) => {
+    let todo = await db.Todo.findOne({ where: {id: req.params.id }})
+    if(todo !== null) res.send(todo)
+    else res.send("User Not Found")
 })
 
 // Inserting new Route
-router.post("/new", authToken, (req: Request, res: Response) => {
-    db.Todo.create({
-        text: req.body.text
-    }).then((submittedTodo: Todo) => res.send(submittedTodo))
+router.post("/new", async (req: Request, res: Response) => {
+    let todo = await db.Todo.create({ text: req.body.text })
+    if(todo !== null) res.send(todo)
+    else res.send("Something wen't wrong")
 })
 
 // delete todo
-router.delete('/delete/:id', authToken, (req: Request, res: Response) => {
-    db.Todo.destroy({
-        where: { id: req.params.id }
-    }).then(() => res.send("Success"))
+router.delete('/delete/:id', async (req: Request, res: Response) => {
+    try {
+        await db.Todo.destroy({ where: {id: req.params.id }})
+        res.send("Success")
+    }catch(err) {
+        res.send("Something wen't wrong")
+    }
 })
 
 // Update 
-router.put("/edit", authToken, (req: Request, res: Response) => {
-    db.Todo.update(
-        { text: req.body.text }, 
-        { where:{ id: req.body.id }
-    }).then(() => res.send("Success"))
-})
-
-// middleware to verify the token
-function authToken(req: Request, res: Response, next: NextFunction) {
-    const authHeader = req.headers['authorization'] // bearer
-    const token = authHeader && authHeader.split(' ')[1]
-    if(token == null){
-        res.send("Token not found")
-    }else{
-        jwt.verify(token, config.ACCESS_SECRET, (err: any, user: User) => {
-            if(err) return res.send('Incorrect Token' + err)
-            next()
-        })
+router.put("/edit", async (req: Request, res: Response) => {
+    try {
+        await db.Todo.update({text: req.body.text}, {where: {id: req.body.id }})
+        res.send("success")
+    }catch(err){
+        res.send("Somethong wen't wrong")
     }
-}
+})
 
 module.exports = router
