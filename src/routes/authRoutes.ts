@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express"
-import { Model } from "sequelize/types"
-import { any } from "sequelize/types/lib/operators"
+import {User} from "../interfaces"
 
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
@@ -11,31 +10,40 @@ const config = require(__dirname + '/../config/config.json')[env];
 
 const router = express.Router()
 
-interface User { username: string, password:string }
-
 // sign-up user
-router.post("/sign-up", (req : Request, res: Response) => {
-    const passwordHash = bcrypt.hashSync(req.body.password, 10)
-    db.User.create({
-        username: req.body.username,
-        password: passwordHash
-    }).then((submittedUser: User) => {
-        res.send(submittedUser)
-    })
+router.post("/sign-up", async (req : Request, res: Response) => {
+    try{
+        let user = await db.User.findOne({where: {username: req.body.username}})
+        if(user === null){
+            const passwordHash = await bcrypt.hashSync(req.body.password, 10)
+            let userAdded = await db.User.create({username: req.body.username, password: passwordHash})
+            if(userAdded !== null) res.send(userAdded)
+            else res.send("Something wen't wrong")
+        }else{
+            res.send("User Already Exist");
+        }
+    }catch(err){
+        res.send("Error: " + err)
+    }
 })
 
 // validate User
-router.post("/login", (req: Request, res: Response) => {
-    db.User.findAll({
-        where: { username: req.body.username }
-    }).then((user: User[]) => {
-        if(bcrypt.compareSync(req.body.password, user[0].password)){
-            const token = jwt.sign({user: user}, config.ACCESS_SECRET, {expiresIn: '5m'})
-            res.send({id_token: token})
-        }else{
-            res.send("Failure")
+router.post("/login", async (req: Request, res: Response) => {
+    try {
+        let user = await db.User.findOne({where: {username: req.body.username}})
+        if(user !== null){
+            if(bcrypt.compareSync(req.body.password, user.password)){
+                let token = jwt.sign({user: user}, config.ACCESS_SECRET, {expiresIn: '5m'})
+                res.send({id_token: token})
+            }else{
+                res.send("Incorrect Password")
+            }
+        } else{
+            res.send("User Not Exist")
         }
-    })
+    }catch(err){
+        res.send("Error : " + err)
+    }  
 })
 
 module.exports = router

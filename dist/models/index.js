@@ -5,9 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
-// import {Sequelize} from "sequelize"
-// const fs = require('fs');
-// const path = require('path');
 var Sequelize = require('sequelize');
 var basename = path_1.default.basename(__filename);
 var env = process.env.NODE_ENV || 'development';
