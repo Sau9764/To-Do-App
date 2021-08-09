@@ -40,56 +40,80 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var db = require("../models");
+var db = require('../models');
 var router = express_1.default.Router();
 // get All todo List
-router.get("/all", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var todos;
+router.get('/all', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var todos, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.Todo.findAll()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db.Todo.findAll()];
             case 1:
                 todos = _a.sent();
-                res.send(todos);
-                return [2 /*return*/];
+                if (todos === null) {
+                    return [2 /*return*/, res.status(204).send({ msg: 'No Records Found' })]; // No content
+                }
+                res.status(200).send({ data: todos }); // send Data
+                return [3 /*break*/, 3];
+            case 2:
+                err_1 = _a.sent();
+                res.status(503).send({ msg: "Somethong wen't wrong : " + err_1 }); // Service Unavaliable
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
 // get By ID
-router.get("/find/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var todo;
+router.get('/find/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var todo, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.Todo.findOne({ where: { id: req.params.id } })];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db.Todo.findOne({ where: { id: req.params.id } })];
             case 1:
                 todo = _a.sent();
                 if (todo !== null)
-                    res.send(todo);
+                    res.status(200).send({ data: todo }); // Sent data
                 else
-                    res.send("User Not Found");
-                return [2 /*return*/];
+                    res.status(204).send({ msg: 'User Not Found' }); // No content
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                res.status(503).send({ msg: "Somethong wen't wrong : " + err_2 }); // Service Unavaliable
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
 // Inserting new Route
-router.post("/new", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var todo;
+router.post('/new', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var todo, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.Todo.create({ text: req.body.text })];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db.Todo.create({ text: req.body.text })];
             case 1:
                 todo = _a.sent();
                 if (todo !== null)
-                    res.send(todo);
+                    res.status(200).send({ data: todo }); // Data sent
                 else
-                    res.send("Something wen't wrong");
-                return [2 /*return*/];
+                    res.status(400).send({ msg: 'User not created.' }); // Bad request
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                res.status(503).send({ msg: "Somethong wen't wrong : " + err_3 }); // Service Unavaliable
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
 // delete todo
 router.delete('/delete/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var err_1;
+    var err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -97,19 +121,19 @@ router.delete('/delete/:id', function (req, res) { return __awaiter(void 0, void
                 return [4 /*yield*/, db.Todo.destroy({ where: { id: req.params.id } })];
             case 1:
                 _a.sent();
-                res.send("Success");
+                res.status(200).send({ msg: 'Success' });
                 return [3 /*break*/, 3];
             case 2:
-                err_1 = _a.sent();
-                res.send("Something wen't wrong");
+                err_4 = _a.sent();
+                res.status(503).send({ msg: "Somethong wen't wrong : " + err_4 }); // Service Unavaliable
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); });
 // Update 
-router.put("/edit", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var err_2;
+router.put('/edit', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -117,11 +141,11 @@ router.put("/edit", function (req, res) { return __awaiter(void 0, void 0, void 
                 return [4 /*yield*/, db.Todo.update({ text: req.body.text }, { where: { id: req.body.id } })];
             case 1:
                 _a.sent();
-                res.send("success");
+                res.status(200).send({ msg: 'success' });
                 return [3 /*break*/, 3];
             case 2:
-                err_2 = _a.sent();
-                res.send("Somethong wen't wrong");
+                err_5 = _a.sent();
+                res.status(503).send({ msg: "Somethong wen't wrong : " + err_5 }); // Service Unavaliable
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
