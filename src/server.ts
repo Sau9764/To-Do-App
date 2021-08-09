@@ -14,6 +14,7 @@ const PORT = process.env.port || 8080
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
+// Routes
 app.use("/auth", authRoutes)
 app.use(authToken)
 app.use("/api", apiRoutes)

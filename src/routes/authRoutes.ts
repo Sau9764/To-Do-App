@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express"
-import {User} from "../interfaces"
 
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
@@ -13,6 +12,7 @@ const router = express.Router()
 // sign-up user
 router.post("/sign-up", async (req : Request, res: Response) => {
     try{
+        // Search isExist()
         let user = await db.User.findOne({where: {username: req.body.username}})
         if(user === null){
             const passwordHash = await bcrypt.hashSync(req.body.password, 10)
