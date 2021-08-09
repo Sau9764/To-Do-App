@@ -40,14 +40,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var bcrypt = require("bcrypt");
-var jwt = require("jsonwebtoken");
-var db = require("../models");
+var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+var db = require('../models');
 var env = process.env.NODE_ENV || 'development';
 var config = require(__dirname + '/../config/config.json')[env];
 var router = express_1.default.Router();
 // sign-up user
-router.post("/sign-up", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.post('/sign-up', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user, passwordHash, userAdded, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -63,25 +63,26 @@ router.post("/sign-up", function (req, res) { return __awaiter(void 0, void 0, v
                 return [4 /*yield*/, db.User.create({ username: req.body.username, password: passwordHash })];
             case 3:
                 userAdded = _a.sent();
-                if (userAdded !== null)
-                    res.send(userAdded);
+                if (userAdded !== null) {
+                    res.status(201).send({ msg: 'User addedd.', data: { 'id': userAdded.id, 'username': userAdded.username } }); // Data save
+                }
                 else
-                    res.send("Something wen't wrong");
+                    res.status(400).send({ msg: 'Something wen\'t wrong' }); // Bad Request
                 return [3 /*break*/, 5];
             case 4:
-                res.send("User Already Exist");
+                res.status(400).send({ msg: 'User Already Exist' }); // Bad Request
                 _a.label = 5;
             case 5: return [3 /*break*/, 7];
             case 6:
                 err_1 = _a.sent();
-                res.send("Error: " + err_1);
+                res.status(503).send({ msg: "Error: " + err_1 }); // Service Unavailable
                 return [3 /*break*/, 7];
             case 7: return [2 /*return*/];
         }
     });
 }); });
 // validate User
-router.post("/login", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.post('/login', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user, token, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -93,19 +94,19 @@ router.post("/login", function (req, res) { return __awaiter(void 0, void 0, voi
                 if (user !== null) {
                     if (bcrypt.compareSync(req.body.password, user.password)) {
                         token = jwt.sign({ user: user }, config.ACCESS_SECRET, { expiresIn: '5m' });
-                        res.send({ id_token: token });
+                        res.status(200).send({ id_token: token }); // Data sent
                     }
                     else {
-                        res.send("Incorrect Password");
+                        res.status(400).send({ msg: 'Incorrect Password' }); // Bad request
                     }
                 }
                 else {
-                    res.send("User Not Exist");
+                    res.status(400).send({ msg: 'User Not Exist' }); // Bad request
                 }
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
-                res.send("Error : " + err_2);
+                res.status(503).send({ msg: "Error: " + err_2 }); // Service Unavailable
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }

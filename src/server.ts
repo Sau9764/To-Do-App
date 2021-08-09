@@ -1,12 +1,11 @@
-
 import express, { Request, Response, NextFunction} from 'express'
-import jwt from "jsonwebtoken"
+import jwt from 'jsonwebtoken'
 
-const db = require("./models")
-const apiRoutes = require("./routes/apiRoutes.js")
-const authRoutes = require("./routes/authRoutes.js")
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/config/config.json')[env];
+const db = require('./models')
+const apiRoutes = require('./routes/apiRoutes.js')
+const authRoutes = require('./routes/authRoutes.js')
+const env = process.env.NODE_ENV || 'development'
+const config = require(__dirname + '/config/config.json')[env]
 
 const app = express()
 const PORT = process.env.port || 8080
@@ -15,19 +14,19 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 // Routes
-app.use("/auth", authRoutes)
+app.use('/auth', authRoutes)
 app.use(authToken)
-app.use("/api", apiRoutes)
+app.use('/api', apiRoutes)
 
 // middleware to verify the token
 function authToken(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers['authorization'] // bearer
   const token = authHeader && authHeader.split(' ')[1]
   if(token == null){
-      res.send("Token not found")
+      return res.status(400).send({msg: 'Token not found'}) // Bad Request
   }else{
       jwt.verify(token, config.ACCESS_SECRET, (err: any) => {
-          if(err) return res.send('Incorrect Token ' + err)
+          if(err) return res.status(401).send({msg: `Incorrect Token ${err}`}) // unauthorized
           next()
       })
   }
@@ -48,4 +47,8 @@ async function createConnection(){
   }
 }
 
-createConnection();
+createConnection()
+.then()
+.catch((err) => {
+  console.log('Server not started')
+})

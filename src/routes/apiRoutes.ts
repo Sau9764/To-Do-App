@@ -1,41 +1,42 @@
-import express, { Request, Response, NextFunction } from "express"
+import express, { Request, Response, NextFunction } from 'express'
+import {User, Todo} from '../interfaces'
 
-const db = require("../models")
+const db = require('../models')
 
 const router = express.Router()
 
 // get All todo List
-router.get("/all", async (req: Request, res: Response) => {
+router.get('/all', async (req: Request, res: Response) => {
     try{
-        let todos = await db.Todo.findAll()
+        let todos: Todo[] = await db.Todo.findAll()
         if(todos === null){
-            return res.send("No Records Found")
+            return res.status(204).send({msg: 'No Records Found'}) // No content
         }
-        res.send(todos)
+        res.status(200).send({data: todos}) // send Data
     }catch(err){
-        res.send("Somethong wen't wrong : " + err)
+        res.status(503).send({msg: `Somethong wen't wrong : ${err}`}) // Service Unavaliable
     }
 })
 
 // get By ID
-router.get("/find/:id", async (req: Request, res: Response) => {
+router.get('/find/:id', async (req: Request, res: Response) => {
     try{
-        let todo = await db.Todo.findOne({ where: {id: req.params.id }})
-        if(todo !== null) res.send(todo)
-        else res.send("User Not Found")
+        let todo: Todo = await db.Todo.findOne({ where: {id: req.params.id }})
+        if(todo !== null) res.status(200).send({data: todo}) // Sent data
+        else res.status(204).send({msg: 'User Not Found'}) // No content
     }catch(err){
-        res.send("Somethong wen't wrong : " + err)
+        res.status(503).send({msg: `Somethong wen't wrong : ${err}`}) // Service Unavaliable
     }
 })
 
 // Inserting new Route
-router.post("/new", async (req: Request, res: Response) => {
+router.post('/new', async (req: Request, res: Response) => {
     try{
-        let todo = await db.Todo.create({ text: req.body.text })
-        if(todo !== null) res.send(todo)
-        else res.send("Record Not Found")
+        let todo: Todo = await db.Todo.create({ text: req.body.text })
+        if(todo !== null) res.status(200).send({data: todo}) // Data sent
+        else res.status(400).send({msg: 'User not created.'}) // Bad request
     }catch(err){
-        res.send("Somethong wen't wrong : " + err)
+        res.status(503).send({msg: `Somethong wen't wrong : ${err}`}) // Service Unavaliable
     }
 })
 
@@ -43,19 +44,19 @@ router.post("/new", async (req: Request, res: Response) => {
 router.delete('/delete/:id', async (req: Request, res: Response) => {
     try {
         await db.Todo.destroy({ where: {id: req.params.id }})
-        res.send("Success")
+        res.status(200).send({msg: 'Success'})
     }catch(err) {
-        res.send("Something wen't wrong")
+        res.status(503).send({msg: `Somethong wen't wrong : ${err}`}) // Service Unavaliable
     }
 })
 
 // Update 
-router.put("/edit", async (req: Request, res: Response) => {
+router.put('/edit', async (req: Request, res: Response) => {
     try {
         await db.Todo.update({text: req.body.text}, {where: {id: req.body.id }})
-        res.send("success")
+        res.status(200).send({msg: 'success'})
     }catch(err){
-        res.send("Somethong wen't wrong")
+        res.status(503).send({msg: `Somethong wen't wrong : ${err}`}) // Service Unavaliable
     }
 })
 

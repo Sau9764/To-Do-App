@@ -41,29 +41,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var db = require("./models");
-var apiRoutes = require("./routes/apiRoutes.js");
-var authRoutes = require("./routes/authRoutes.js");
+var db = require('./models');
+var apiRoutes = require('./routes/apiRoutes.js');
+var authRoutes = require('./routes/authRoutes.js');
 var env = process.env.NODE_ENV || 'development';
 var config = require(__dirname + '/config/config.json')[env];
 var app = express_1.default();
 var PORT = process.env.port || 8080;
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
-app.use("/auth", authRoutes);
+// Routes
+app.use('/auth', authRoutes);
 app.use(authToken);
-app.use("/api", apiRoutes);
+app.use('/api', apiRoutes);
 // middleware to verify the token
 function authToken(req, res, next) {
     var authHeader = req.headers['authorization']; // bearer
     var token = authHeader && authHeader.split(' ')[1];
     if (token == null) {
-        res.send("Token not found");
+        return res.status(400).send({ msg: 'Token not found' }); // Bad Request
     }
     else {
         jsonwebtoken_1.default.verify(token, config.ACCESS_SECRET, function (err) {
             if (err)
-                return res.send('Incorrect Token ' + err);
+                return res.status(401).send({ msg: "Incorrect Token " + err }); // unauthorized
             next();
         });
     }
@@ -99,4 +100,8 @@ function createConnection() {
         });
     });
 }
-createConnection();
+createConnection()
+    .then()
+    .catch(function (err) {
+    console.log('Server not started');
+});
