@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from "express"
-import { Todo } from "../interfaces"
 
 const db = require("../models")
 
@@ -7,22 +6,37 @@ const router = express.Router()
 
 // get All todo List
 router.get("/all", async (req: Request, res: Response) => {
-    let todos = await db.Todo.findAll()
-    res.send(todos)
+    try{
+        let todos = await db.Todo.findAll()
+        if(todos === null){
+            return res.send("No Records Found")
+        }
+        res.send(todos)
+    }catch(err){
+        res.send("Somethong wen't wrong : " + err)
+    }
 })
 
 // get By ID
 router.get("/find/:id", async (req: Request, res: Response) => {
-    let todo = await db.Todo.findOne({ where: {id: req.params.id }})
-    if(todo !== null) res.send(todo)
-    else res.send("User Not Found")
+    try{
+        let todo = await db.Todo.findOne({ where: {id: req.params.id }})
+        if(todo !== null) res.send(todo)
+        else res.send("User Not Found")
+    }catch(err){
+        res.send("Somethong wen't wrong : " + err)
+    }
 })
 
 // Inserting new Route
 router.post("/new", async (req: Request, res: Response) => {
-    let todo = await db.Todo.create({ text: req.body.text })
-    if(todo !== null) res.send(todo)
-    else res.send("Something wen't wrong")
+    try{
+        let todo = await db.Todo.create({ text: req.body.text })
+        if(todo !== null) res.send(todo)
+        else res.send("Record Not Found")
+    }catch(err){
+        res.send("Somethong wen't wrong : " + err)
+    }
 })
 
 // delete todo
