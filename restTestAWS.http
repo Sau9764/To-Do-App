@@ -1,0 +1,56 @@
+### Signup
+
+POST http://18.223.126.23:8080/auth/sign-up
+content-type: application/json
+
+{
+    "username": "test3",
+    "password": "test123"
+}
+
+### Login
+
+POST http://18.223.126.23:8080/auth/login
+Content-Type: application/json
+
+{
+    "username": "test3",
+    "password": "test123"
+}
+
+### get All Records
+
+GET http://18.223.126.23:8080/api/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJ1c2VybmFtZSI6InRlc3QzIiwicGFzc3dvcmQiOiIkMmIkMTAkQlc0aGxBWTFOeC9TSmJSOHBQOHFOdWl2ajhXa1Vhcmhoc05OMy5nRkdQYnRmVFRWUXMwZy4iLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTEwVDA1OjQ2OjQyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTEwVDA1OjQ2OjQyLjAwMFoifSwiaWF0IjoxNjI4NTc0NDIyLCJleHAiOjE2Mjg1NzQ3MjJ9.eKDtjIlREvMPvROiIC0Xi7MSBrGmAu4NTpjQOqdXxLc
+
+### Find One
+
+GET http://18.223.126.23:8080/api/find/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJ1c2VybmFtZSI6InRlc3QyIiwicGFzc3dvcmQiOiIkMmIkMTAkbTExeXlmeTNtbmZqODVrTFNRb3BZT2FybWMwYUlXbkxQdU5FOWNGOXFJay9RcDdObEsyZWUiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoifSwiaWF0IjoxNjI4NTczNjI3LCJleHAiOjE2Mjg1NzM5Mjd9.PfWrlKaAWwkRTvxA4ZIrPiqghSiCiUU6LPc9IWxjhqI
+
+### Add new
+
+POST http://18.223.126.23:8080/api/new
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJ1c2VybmFtZSI6InRlc3QzIiwicGFzc3dvcmQiOiIkMmIkMTAkQlc0aGxBWTFOeC9TSmJSOHBQOHFOdWl2ajhXa1Vhcmhoc05OMy5nRkdQYnRmVFRWUXMwZy4iLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTEwVDA1OjQ2OjQyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTEwVDA1OjQ2OjQyLjAwMFoifSwiaWF0IjoxNjI4NTc0NDIyLCJleHAiOjE2Mjg1NzQ3MjJ9.eKDtjIlREvMPvROiIC0Xi7MSBrGmAu4NTpjQOqdXxLc
+content-type: application/json
+
+{
+    "text": "New Job"
+}
+
+### Delete by ID
+
+DELETE http://18.223.126.23:8080/api/delete/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJ1c2VybmFtZSI6InRlc3QyIiwicGFzc3dvcmQiOiIkMmIkMTAkbTExeXlmeTNtbmZqODVrTFNRb3BZT2FybWMwYUlXbkxQdU5FOWNGOXFJay9RcDdObEsyZWUiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoifSwiaWF0IjoxNjI4NTczNjI3LCJleHAiOjE2Mjg1NzM5Mjd9.PfWrlKaAWwkRTvxA4ZIrPiqghSiCiUU6LPc9IWxjhqI
+content-type: application/json
+ 
+### Edit 
+
+PUT http://18.223.126.23:8080/api/edit
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJ1c2VybmFtZSI6InRlc3QyIiwicGFzc3dvcmQiOiIkMmIkMTAkbTExeXlmeTNtbmZqODVrTFNRb3BZT2FybWMwYUlXbkxQdU5FOWNGOXFJay9RcDdObEsyZWUiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoifSwiaWF0IjoxNjI4NTczNjI3LCJleHAiOjE2Mjg1NzM5Mjd9.PfWrlKaAWwkRTvxA4ZIrPiqghSiCiUU6LPc9IWxjhqI
+content-type: application/json
+
+{
+    "id": 1,
+    "text": "This is Updated async"
+}
