@@ -1,3 +1,23 @@
+POST http://localhost:8080/auth/sign-up
+content-type: application/json
+
+{
+    "username": "test1",
+    "password": "test123"
+}
+
+###
+
+POST http://localhost:8080/auth/login
+content-type: application/json
+
+{
+    "username": "test1",
+    "password": "test123"
+}
+
+###
+
 GET http://localhost:8080/api/all
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6InRlc3QxIiwicGFzc3dvcmQiOiIkMmIkMTAkd1l6TlpFbGFhUW56dGdzb2NkNDBidVZabU8yR255bHF3UWtkNnE5RDdlTmV5VjhRRmlHVlciLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTA5VDEwOjMwOjExLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTA5VDEwOjMwOjExLjAwMFoifSwiaWF0IjoxNjI4NTA1MDI5LCJleHAiOjE2Mjg1MDUzMjl9.1Nzssj9ZrJHyRDv-y4tthEAvbjeiR9zgyyGJaIsckpI
 
@@ -31,24 +51,4 @@ content-type: application/json
 {
     "id": 1,
     "text": "This is Updated async"
-}
-
-###
-
-POST http://localhost:8080/auth/sign-up
-content-type: application/json
-
-{
-    "username": "test1",
-    "password": "test123"
-}
-
-###
-
-POST http://localhost:8080/auth/login
-content-type: application/json
-
-{
-    "username": "test1",
-    "password": "test123"
 }
