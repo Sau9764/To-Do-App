@@ -16,7 +16,7 @@
   "production": {
     "username": "sourabh",
     "password": "saurabh9764",
-    "database": "test",
+    "database": "todoApplication",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
