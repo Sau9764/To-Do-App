@@ -4,20 +4,19 @@
     "password": "saurabh9764",
     "database": "test",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "ACCESS_SECRET": "this_is_secret_key_for_jwt_encryption"
+    "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
+    "username": "sourabh",
+    "password": "saurabh9764",
+    "database": "test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
+    "username": "sourabh",
+    "password": "saurabh9764",
+    "database": "test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }

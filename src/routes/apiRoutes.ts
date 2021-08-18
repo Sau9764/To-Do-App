@@ -2,7 +2,6 @@ import express, { Request, Response, NextFunction } from 'express'
 import {User, Todo} from '../interfaces'
 
 const db = require('../models')
-
 const router = express.Router()
 
 // get All todo List
@@ -33,7 +32,7 @@ router.get('/find/:id', async (req: Request, res: Response) => {
 router.post('/new', async (req: Request, res: Response) => {
     try{
         let todo: Todo = await db.Todo.create({ text: req.body.text })
-        if(todo !== null) res.status(200).send({data: todo}) // Data sent
+        if(todo !== null) res.status(200).send({msg: "User Added Successfully"}) // Data sent
         else res.status(400).send({msg: 'User not created.'}) // Bad request
     }catch(err){
         res.status(503).send({msg: `Somethong wen't wrong : ${err}`}) // Service Unavaliable
@@ -44,7 +43,7 @@ router.post('/new', async (req: Request, res: Response) => {
 router.delete('/delete/:id', async (req: Request, res: Response) => {
     try {
         await db.Todo.destroy({ where: {id: req.params.id }})
-        res.status(200).send({msg: 'Success'})
+        res.status(200).send({msg: 'Successfully deleted'})
     }catch(err) {
         res.status(503).send({msg: `Somethong wen't wrong : ${err}`}) // Service Unavaliable
     }
@@ -54,7 +53,7 @@ router.delete('/delete/:id', async (req: Request, res: Response) => {
 router.put('/edit', async (req: Request, res: Response) => {
     try {
         await db.Todo.update({text: req.body.text}, {where: {id: req.body.id }})
-        res.status(200).send({msg: 'success'})
+        res.status(200).send({msg: 'successfully Edited'})
     }catch(err){
         res.status(503).send({msg: `Somethong wen't wrong : ${err}`}) // Service Unavaliable
     }
