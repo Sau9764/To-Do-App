@@ -51,6 +51,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require(__dirname + '/config/config.json')[env];
 var app = express_1.default();
 var PORT = process.env.port || 5000;
+var host = process.env.host || 'localhost';
 app.use(cors_1.default());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
@@ -92,7 +93,7 @@ function createConnection() {
                     // Sync 
                     _a.sent();
                     app.listen(PORT, function () {
-                        console.log("Listening on http://localhost:" + PORT);
+                        console.log("Listening on http://" + host + ":" + PORT);
                     });
                     return [3 /*break*/, 4];
                 case 3:

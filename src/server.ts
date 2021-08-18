@@ -13,6 +13,7 @@ const config = require(__dirname + '/config/config.json')[env]
 
 const app = express()
 const PORT = process.env.port || 5000
+const host = process.env.host || 'localhost'
 
 app.use(cors())
 app.use(express.urlencoded({extended: true}))
@@ -45,7 +46,7 @@ async function createConnection(){
     // Sync 
     await db.sequelize.sync();
     app.listen(PORT, () => {
-      console.log(`Listening on http://localhost:${PORT}`)
+      console.log(`Listening on http://${host}:${PORT}`)
     })
   }catch(err) {
     console.log('\nUnable to connect to the database:', err)
