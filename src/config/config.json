@@ -15,7 +15,7 @@
   },
   "production": {
     "username": "root",
-    "password": "",
+    "password": "Root@123",
     "database": "todoApplication",
     "host": "127.0.0.1",
     "dialect": "mysql"
