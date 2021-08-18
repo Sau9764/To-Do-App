@@ -75,10 +75,10 @@ router.get('/find/:id', function (req, res) { return __awaiter(void 0, void 0, v
                 return [4 /*yield*/, db.Todo.findOne({ where: { id: req.params.id } })];
             case 1:
                 todo = _a.sent();
-                if (todo !== null)
-                    res.status(200).send({ data: todo }); // Sent data
+                if (todo === null)
+                    res.status(204).send({ msg: 'Todo Not Found' }); // No content
                 else
-                    res.status(204).send({ msg: 'User Not Found' }); // No content
+                    res.status(200).send({ data: todo }); // Sent data
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
@@ -99,9 +99,9 @@ router.post('/new', function (req, res) { return __awaiter(void 0, void 0, void 
             case 1:
                 todo = _a.sent();
                 if (todo !== null)
-                    res.status(200).send({ msg: "User Added Successfully" }); // Data sent
+                    res.status(200).send({ msg: "Todo Added Successfully" }); // Data sent
                 else
-                    res.status(400).send({ msg: 'User not created.' }); // Bad request
+                    res.status(400).send({ msg: 'Todo not created.' }); // Bad request
                 return [3 /*break*/, 3];
             case 2:
                 err_3 = _a.sent();

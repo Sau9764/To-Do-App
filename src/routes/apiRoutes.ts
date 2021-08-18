@@ -21,8 +21,8 @@ router.get('/all', async (req: Request, res: Response) => {
 router.get('/find/:id', async (req: Request, res: Response) => {
     try{
         let todo: Todo = await db.Todo.findOne({ where: {id: req.params.id }})
-        if(todo !== null) res.status(200).send({data: todo}) // Sent data
-        else res.status(204).send({msg: 'User Not Found'}) // No content
+        if(todo === null) res.status(204).send({msg: 'Todo Not Found'}) // No content
+        else res.status(200).send({data: todo}) // Sent data
     }catch(err){
         res.status(503).send({msg: `Somethong wen't wrong : ${err}`}) // Service Unavaliable
     }
@@ -32,8 +32,8 @@ router.get('/find/:id', async (req: Request, res: Response) => {
 router.post('/new', async (req: Request, res: Response) => {
     try{
         let todo: Todo = await db.Todo.create({ text: req.body.text })
-        if(todo !== null) res.status(200).send({msg: "User Added Successfully"}) // Data sent
-        else res.status(400).send({msg: 'User not created.'}) // Bad request
+        if(todo !== null) res.status(200).send({msg: "Todo Added Successfully"}) // Data sent
+        else res.status(400).send({msg: 'Todo not created.'}) // Bad request
     }catch(err){
         res.status(503).send({msg: `Somethong wen't wrong : ${err}`}) // Service Unavaliable
     }
