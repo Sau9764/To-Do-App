@@ -41,13 +41,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+var cors_1 = __importDefault(require("cors"));
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var db = require('./models');
 var apiRoutes = require('./routes/apiRoutes.js');
 var authRoutes = require('./routes/authRoutes.js');
 var env = process.env.NODE_ENV || 'development';
 var config = require(__dirname + '/config/config.json')[env];
 var app = express_1.default();
-var PORT = process.env.port || 8080;
+var PORT = process.env.port || 5000;
+app.use(cors_1.default());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 // Routes
@@ -62,7 +66,7 @@ function authToken(req, res, next) {
         return res.status(400).send({ msg: 'Token not found' }); // Bad Request
     }
     else {
-        jsonwebtoken_1.default.verify(token, config.ACCESS_SECRET, function (err) {
+        jsonwebtoken_1.default.verify(token, process.env.ACCESS_SECRET || '', function (err) {
             if (err)
                 return res.status(401).send({ msg: "Incorrect Token " + err }); // unauthorized
             next();

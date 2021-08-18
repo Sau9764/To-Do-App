@@ -99,7 +99,7 @@ router.post('/new', function (req, res) { return __awaiter(void 0, void 0, void 
             case 1:
                 todo = _a.sent();
                 if (todo !== null)
-                    res.status(200).send({ data: todo }); // Data sent
+                    res.status(200).send({ msg: "User Added Successfully" }); // Data sent
                 else
                     res.status(400).send({ msg: 'User not created.' }); // Bad request
                 return [3 /*break*/, 3];
@@ -121,7 +121,7 @@ router.delete('/delete/:id', function (req, res) { return __awaiter(void 0, void
                 return [4 /*yield*/, db.Todo.destroy({ where: { id: req.params.id } })];
             case 1:
                 _a.sent();
-                res.status(200).send({ msg: 'Success' });
+                res.status(200).send({ msg: 'Successfully deleted' });
                 return [3 /*break*/, 3];
             case 2:
                 err_4 = _a.sent();
@@ -141,7 +141,7 @@ router.put('/edit', function (req, res) { return __awaiter(void 0, void 0, void 
                 return [4 /*yield*/, db.Todo.update({ text: req.body.text }, { where: { id: req.body.id } })];
             case 1:
                 _a.sent();
-                res.status(200).send({ msg: 'success' });
+                res.status(200).send({ msg: 'successfully Edited' });
                 return [3 /*break*/, 3];
             case 2:
                 err_5 = _a.sent();

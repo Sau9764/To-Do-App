@@ -40,11 +40,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var db = require('../models');
-var env = process.env.NODE_ENV || 'development';
-var config = require(__dirname + '/../config/config.json')[env];
 var router = express_1.default.Router();
 // sign-up user
 router.post('/sign-up', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -81,6 +81,26 @@ router.post('/sign-up', function (req, res) { return __awaiter(void 0, void 0, v
         }
     });
 }); });
+// 2nd Time validate
+router.get('/callback', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var authHeader, token;
+    return __generator(this, function (_a) {
+        authHeader = req.headers['authorization'] // bearer
+        ;
+        token = authHeader && authHeader.split(' ')[1];
+        if (token == null) {
+            res.status(400).send({ msg: "Token not found" }); // Bad request
+        }
+        else {
+            jwt.verify(token, process.env.ACCESS_SECRET, function (err) {
+                if (err)
+                    return res.status(401).send({ msg: 'Incorrect Token' });
+                res.status(200).send({ msg: 'Token Verified' });
+            });
+        }
+        return [2 /*return*/];
+    });
+}); });
 // validate User
 router.post('/login', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user, token, err_2;
@@ -93,7 +113,7 @@ router.post('/login', function (req, res) { return __awaiter(void 0, void 0, voi
                 user = _a.sent();
                 if (user !== null) {
                     if (bcrypt.compareSync(req.body.password, user.password)) {
-                        token = jwt.sign({ user: user }, config.ACCESS_SECRET, { expiresIn: '5m' });
+                        token = jwt.sign({ user: user }, process.env.ACCESS_SECRET, { expiresIn: '5m' });
                         res.status(200).send({ id_token: token }); // Data sent
                     }
                     else {

@@ -1,5 +1,9 @@
 import express, { Request, Response, NextFunction} from 'express'
 import jwt from 'jsonwebtoken'
+import cors from 'cors'
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const db = require('./models')
 const apiRoutes = require('./routes/apiRoutes.js')
@@ -8,8 +12,9 @@ const env = process.env.NODE_ENV || 'development'
 const config = require(__dirname + '/config/config.json')[env]
 
 const app = express()
-const PORT = process.env.port || 8080
+const PORT = process.env.port || 5000
 
+app.use(cors())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
@@ -25,7 +30,7 @@ function authToken(req: Request, res: Response, next: NextFunction) {
   if(token == null){
       return res.status(400).send({msg: 'Token not found'}) // Bad Request
   }else{
-      jwt.verify(token, config.ACCESS_SECRET, (err: any) => {
+      jwt.verify(token, process.env.ACCESS_SECRET || '', (err: any) => {
           if(err) return res.status(401).send({msg: `Incorrect Token ${err}`}) // unauthorized
           next()
       })
