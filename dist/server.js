@@ -70,6 +70,12 @@ function authToken(req, res, next) {
         jsonwebtoken_1.default.verify(token, process.env.ACCESS_SECRET || '', function (err) {
             if (err)
                 return res.status(401).send({ msg: "Incorrect Token " + err }); // unauthorized
+            var Auth = req.headers.authorization;
+            var token = Auth === null || Auth === void 0 ? void 0 : Auth.split(' ')[1];
+            var base64URI = token.split(".")[1];
+            var buff = Buffer.from(base64URI, 'base64');
+            var userObj = JSON.parse(buff.toString('ascii')).user;
+            req.body.userObj = userObj;
             next();
         });
     }

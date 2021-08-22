@@ -4,6 +4,10 @@ module.exports = function (sequelize, DataTypes) {
         text: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     });
     return Todo;

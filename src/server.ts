@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction} from 'express'
 import jwt from 'jsonwebtoken'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import {User, Todo} from './interfaces'
 
 dotenv.config();
 
@@ -33,7 +34,16 @@ function authToken(req: Request, res: Response, next: NextFunction) {
   }else{
       jwt.verify(token, process.env.ACCESS_SECRET || '', (err: any) => {
           if(err) return res.status(401).send({msg: `Incorrect Token ${err}`}) // unauthorized
+          
+          const Auth = req.headers.authorization
+          const token: any = Auth?.split(' ')[1]
+          const base64URI = token.split(".")[1]
+          let buff = Buffer.from(base64URI, 'base64')
+          let userObj: User = JSON.parse(buff.toString('ascii')).user
+          req.body.userObj = userObj
+
           next()
+          
       })
   }
 }

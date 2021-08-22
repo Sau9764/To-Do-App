@@ -1,16 +1,16 @@
 ### Signup
 
-POST http://18.223.126.23:8080/auth/sign-up
+POST http://ec2-3-16-56-212.us-east-2.compute.amazonaws.com:8080/auth/sign-up
 content-type: application/json
 
 {
-    "username": "test3",
+    "username": "test1",
     "password": "test123"
 }
 
 ### Login
 
-POST http://18.223.126.23:8080/auth/login
+POST http://3.16.56.212:8080/auth/login
 Content-Type: application/json
 
 {
@@ -20,33 +20,33 @@ Content-Type: application/json
 
 ### get All Records
 
-GET http://18.223.126.23:8080/api/all
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJ1c2VybmFtZSI6InRlc3QzIiwicGFzc3dvcmQiOiIkMmIkMTAkQlc0aGxBWTFOeC9TSmJSOHBQOHFOdWl2ajhXa1Vhcmhoc05OMy5nRkdQYnRmVFRWUXMwZy4iLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTEwVDA1OjQ2OjQyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTEwVDA1OjQ2OjQyLjAwMFoifSwiaWF0IjoxNjI4NTc0NDIyLCJleHAiOjE2Mjg1NzQ3MjJ9.eKDtjIlREvMPvROiIC0Xi7MSBrGmAu4NTpjQOqdXxLc
+GET http://3.16.56.212:8080/api/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6InRlc3QzIiwicGFzc3dvcmQiOiIkMmIkMTAkOUJFcElQNTdnaFJrWlp0TEhpWHMwdXdON0tXQmZQSC40RXg5N3pkNDdrQndaV1UyRnlqNXUiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTE4VDExOjU4OjU2LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTE4VDExOjU4OjU2LjAwMFoifSwiaWF0IjoxNjI5Mjg3OTQ2LCJleHAiOjE2MjkyODgyNDZ9.ZWhhBwDQucyQwtfS9KhYSErUML5LRu6aYtLzh0wPXEM
 
 ### Find One
 
-GET http://18.223.126.23:8080/api/find/3
+GET http://3.16.56.212:8080/api/find/3
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJ1c2VybmFtZSI6InRlc3QyIiwicGFzc3dvcmQiOiIkMmIkMTAkbTExeXlmeTNtbmZqODVrTFNRb3BZT2FybWMwYUlXbkxQdU5FOWNGOXFJay9RcDdObEsyZWUiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoifSwiaWF0IjoxNjI4NTczNjI3LCJleHAiOjE2Mjg1NzM5Mjd9.PfWrlKaAWwkRTvxA4ZIrPiqghSiCiUU6LPc9IWxjhqI
 
 ### Add new
 
-POST http://18.223.126.23:8080/api/new
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJ1c2VybmFtZSI6InRlc3QzIiwicGFzc3dvcmQiOiIkMmIkMTAkQlc0aGxBWTFOeC9TSmJSOHBQOHFOdWl2ajhXa1Vhcmhoc05OMy5nRkdQYnRmVFRWUXMwZy4iLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTEwVDA1OjQ2OjQyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTEwVDA1OjQ2OjQyLjAwMFoifSwiaWF0IjoxNjI4NTc0NDIyLCJleHAiOjE2Mjg1NzQ3MjJ9.eKDtjIlREvMPvROiIC0Xi7MSBrGmAu4NTpjQOqdXxLc
+POST http://3.16.56.212:8080/api/new
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6InRlc3QzIiwicGFzc3dvcmQiOiIkMmIkMTAkOUJFcElQNTdnaFJrWlp0TEhpWHMwdXdON0tXQmZQSC40RXg5N3pkNDdrQndaV1UyRnlqNXUiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTE4VDExOjU4OjU2LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTE4VDExOjU4OjU2LjAwMFoifSwiaWF0IjoxNjI5MjkwNjQ2LCJleHAiOjE2MjkyOTA5NDZ9.weSJlzWuPbowfFOY-d5TyjvOE9DiRsxLSvCEqMSum-I
 content-type: application/json
 
 {
-    "text": "New Job"
+    "text": "New Job test1"
 }
 
 ### Delete by ID
 
-DELETE http://18.223.126.23:8080/api/delete/2
+DELETE http://3.16.56.212:8080/api/delete/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJ1c2VybmFtZSI6InRlc3QyIiwicGFzc3dvcmQiOiIkMmIkMTAkbTExeXlmeTNtbmZqODVrTFNRb3BZT2FybWMwYUlXbkxQdU5FOWNGOXFJay9RcDdObEsyZWUiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoifSwiaWF0IjoxNjI4NTczNjI3LCJleHAiOjE2Mjg1NzM5Mjd9.PfWrlKaAWwkRTvxA4ZIrPiqghSiCiUU6LPc9IWxjhqI
 content-type: application/json
  
 ### Edit 
 
-PUT http://18.223.126.23:8080/api/edit
+PUT http://3.16.56.212:8080/api/edit
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJ1c2VybmFtZSI6InRlc3QyIiwicGFzc3dvcmQiOiIkMmIkMTAkbTExeXlmeTNtbmZqODVrTFNRb3BZT2FybWMwYUlXbkxQdU5FOWNGOXFJay9RcDdObEsyZWUiLCJjcmVhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTA4LTEwVDA0OjUxOjEyLjAwMFoifSwiaWF0IjoxNjI4NTczNjI3LCJleHAiOjE2Mjg1NzM5Mjd9.PfWrlKaAWwkRTvxA4ZIrPiqghSiCiUU6LPc9IWxjhqI
 content-type: application/json
 

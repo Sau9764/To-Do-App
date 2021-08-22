@@ -49,7 +49,7 @@ router.get('/all', function (req, res) { return __awaiter(void 0, void 0, void 0
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db.Todo.findAll()];
+                return [4 /*yield*/, db.Todo.findAll({ where: { userId: req.body.userObj.id } })];
             case 1:
                 todos = _a.sent();
                 if (todos === null) {
@@ -72,7 +72,7 @@ router.get('/find/:id', function (req, res) { return __awaiter(void 0, void 0, v
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db.Todo.findOne({ where: { id: req.params.id } })];
+                return [4 /*yield*/, db.Todo.findOne({ where: { id: req.params.id, userId: req.body.userObj.id } })];
             case 1:
                 todo = _a.sent();
                 if (todo === null)
@@ -95,7 +95,7 @@ router.post('/new', function (req, res) { return __awaiter(void 0, void 0, void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db.Todo.create({ text: req.body.text })];
+                return [4 /*yield*/, db.Todo.create({ text: req.body.text, userId: req.body.userObj.id })];
             case 1:
                 todo = _a.sent();
                 if (todo !== null)
@@ -118,7 +118,7 @@ router.delete('/delete/:id', function (req, res) { return __awaiter(void 0, void
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db.Todo.destroy({ where: { id: req.params.id } })];
+                return [4 /*yield*/, db.Todo.destroy({ where: { id: req.params.id, userId: req.body.userObj.id } })];
             case 1:
                 _a.sent();
                 res.status(200).send({ msg: 'Successfully deleted' });
@@ -138,7 +138,7 @@ router.put('/edit', function (req, res) { return __awaiter(void 0, void 0, void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db.Todo.update({ text: req.body.text }, { where: { id: req.body.id } })];
+                return [4 /*yield*/, db.Todo.update({ text: req.body.text }, { where: { id: req.body.id, userId: req.body.userObj.id } })];
             case 1:
                 _a.sent();
                 res.status(200).send({ msg: 'successfully Edited' });
