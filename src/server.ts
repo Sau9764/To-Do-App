@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction} from 'express'
 import jwt from 'jsonwebtoken'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import {User, Todo} from './interfaces'
+import {User} from './interfaces'
 
 dotenv.config();
 
@@ -10,7 +10,7 @@ const db = require('./models')
 const apiRoutes = require('./routes/apiRoutes.js')
 const authRoutes = require('./routes/authRoutes.js')
 const env = process.env.NODE_ENV || 'development'
-const config = require(__dirname + '/config/config.json')[env]
+const config = require(__dirname + '/config/config.js')[env]
 
 const app = express()
 const PORT = process.env.port || 5000
@@ -41,9 +41,7 @@ function authToken(req: Request, res: Response, next: NextFunction) {
           let buff = Buffer.from(base64URI, 'base64')
           let userObj: User = JSON.parse(buff.toString('ascii')).user
           req.body.userObj = userObj
-
           next()
-          
       })
   }
 }

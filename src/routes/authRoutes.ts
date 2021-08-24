@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import {User, Todo} from '../interfaces'
+import {User} from '../interfaces'
 import dotenv from 'dotenv'
 
 dotenv.config();
@@ -14,10 +14,10 @@ const router = express.Router()
 router.post('/sign-up', async (req : Request, res: Response) => {
     try{
         // Search isExist()
-        let user = await db.User.findOne({where: {username: req.body.username}})
+        let user = await db.Users.findOne({where: {username: req.body.username}})
         if(user === null){
             const passwordHash = await bcrypt.hashSync(req.body.password, 10)
-            let userAdded: User = await db.User.create({username: req.body.username, password: passwordHash})
+            let userAdded: User = await db.Users.create({username: req.body.username, password: passwordHash})
             if(userAdded !== null) {
                 res.status(201).send({msg: 'User addedd.', data: {'id':userAdded.id, 'username': userAdded.username}}) // Data save
             }
@@ -47,7 +47,7 @@ router.get('/callback', async (req: Request, res: Response) => {
 // validate User
 router.post('/login', async (req: Request, res: Response) => {
     try {
-        let user: User = await db.User.findOne({where: {username: req.body.username}})
+        let user: User = await db.Users.findOne({where: {username: req.body.username}})
         if(user !== null){
             if(bcrypt.compareSync(req.body.password, user.password)){
                 let token = jwt.sign({user: user}, process.env.ACCESS_SECRET, {expiresIn: '5m'})

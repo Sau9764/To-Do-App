@@ -1,2 +1,4 @@
 /node_modules
 restTest.http
+.env
+restTestAWS.http
